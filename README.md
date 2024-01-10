@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# 배포
+- `netlify` 배포
+- 배포 명령어 `npm run build`
+  - `npm run build` -> `master push` -> 배포됨
+- 참고 블로그: https://velog.io/@somda/FE-Netlify%EB%A1%9C-React-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B9%A0%EB%A5%B4%EA%B2%8C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 사전준비
+1. 네이버 개발자 센터에서 애플리케이션 생성
+2. 서비스 URL 설정: http://localhost:3000
+3. 네이버 로그인 Callback URL 설정: http://localhost:3000/auth/naver/callback
+4. Client ID 발급: J1afSRaLNkl5TACjwq9s
 
-## Available Scripts
 
-In the project directory, you can run:
+# FLOW
+1. 로그인 화면
+   - 로그인 버튼 클릭시 NAVER_AUTH_URL 로 이동
+```
+function App() {
+  const CLIENT_ID = "J1afSRaLNkl5TACjwq9s";
+  const REDIRECT_URL = "http://localhost:3000/auth/naver/callback";
+  const STATE = "false";
+  const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URL}`;
 
-### `npm start`
+  const handleLogin = () => {
+    window.location.href = NAVER_AUTH_URL;
+  };
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  return (
+    <div>
+      <button onClick={handleLogin}>네이버 로그인1</button>
+    </div>
+  );
+}
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. 로그인 성공하면 네이버에서 자체적으로 애플리케이션에 등록한 REDIRECT_URL 로 이동시킨다.
+   - 성공 code 값을 받는다.
 
-### `npm test`
+```
+const RedirectURI = () => {
+  const params = new URL(document.URL).searchParams;
+  const code = params.get("code");
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  const getToken = async () => {
+    try {
+      // 백엔드로 코드값을 넘겨주는 로직
+      // code를 서버로 보낸다
+      // 서버에서 access_token 을 발급해준다
+      // 요청 성공하면
+      // profile 화면으로 이동
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-### `npm run build`
+  useEffect(() => {
+    getToken();
+  }, []);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  return <div>로그인 중... {code}</div>;
+};
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 추가 설명
+- 사실 서버가 있다면 코드 값을 프론트로 바로 받아오지 않고 백엔드에서 처리 할 거다.
+- Callback Url 을 백엔드 서버 주소로 해놓으면 서버에서 코드 값을 받아서 로직을 구현 한다음 프론트 화면으로 리다이렉트 시켜줄거다.
