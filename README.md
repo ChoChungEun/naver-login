@@ -1,4 +1,6 @@
 # 배포
+- 배포 주소: https://naver-login-client.netlify.app
+- 배포 설정 화면: https://app.netlify.com/sites/naver-login-client/overview
 - `netlify` 배포
 - 배포 명령어 `npm run build`
   - `npm run build` -> `master push` -> 배포됨
