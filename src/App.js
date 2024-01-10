@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div>
-      <button onClick={handleLogin}>네이버 로그인</button>
+      <button onClick={handleLogin}>네이버 로그인1</button>
     </div>
   );
 }
