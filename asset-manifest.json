@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/naver-login/static/js/main.dd5779bb.js",
+    "main.js": "/naver-login/static/js/main.6d3b8861.js",
     "index.html": "/naver-login/index.html",
-    "main.dd5779bb.js.map": "/naver-login/static/js/main.dd5779bb.js.map"
+    "main.6d3b8861.js.map": "/naver-login/static/js/main.6d3b8861.js.map"
   },
   "entrypoints": [
-    "static/js/main.dd5779bb.js"
+    "static/js/main.6d3b8861.js"
   ]
 }
