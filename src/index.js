@@ -6,10 +6,11 @@ import RedirectURI from "./RedirectURI";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Router>
-    <Routes>
-      <Route path="/naver-login" element={<App />} />
-      <Route path="/auth/naver/callback" element={<RedirectURI />} />
-    </Routes>
-  </Router>
+  <App />
+  //   <Router>
+  //     <Routes>
+  //       <Route path="/naver-login" element={<App />} />
+  //       <Route path="/auth/naver/callback" element={<RedirectURI />} />
+  //     </Routes>
+  //   </Router>
 );
