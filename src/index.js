@@ -6,9 +6,9 @@ import RedirectURI from "./RedirectURI";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Router basename="https://ChoChungEun.github.io/naver-login">
+  <Router basename={process.env.PUBLIC_URL}>
     <Routes>
-      <Route exact path="/" element={<App />} />
+      <Route path="/" element={<App />} />
       <Route path="/auth/naver/callback" element={<RedirectURI />} />
     </Routes>
   </Router>
