@@ -1,5 +1,5 @@
 function App() {
-  const CLIENT_ID = "J1afSRaLNkl5TACjwq9s";
+  const CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
   const REDIRECT_URL = "http://localhost:3000/auth/naver/callback";
   const STATE = "false";
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URL}`;
